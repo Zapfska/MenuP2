@@ -19,7 +19,18 @@ exports.deleteBurgerFromCart = async (req, res, next) => {
   await Cart.findOneAndDelete({ burger: req.params.burgerId });
 
   res.status(204).json({
-    status: "successs",
+    status: "success",
     data: null,
+  });
+};
+
+exports.getCartByBurgerId = async (req, res, next) => {
+  const cart = await Cart.findOne({ burger: req.params.burgerId }).populate(
+    "burger"
+  );
+
+  res.status(200).json({
+    status: "success",
+    data: cart,
   });
 };
